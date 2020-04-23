@@ -98,6 +98,10 @@ File System, pretty much it.
 
 ### Logging
 
-I started with Morgan as the logger, which is great for middleware logging. I forgot it wasn't for normal logging too...
+I started with Morgan as the logger, which is great for middleware logging.
 
-However, I think I should have used something like Winston, or at least a generic logger that let me log out anywhere in my node app, I thought Morgan could do this and didn't look into it enough.
+I should have used something like Winston, or at least a generic logger that let me log out anywhere in my node app, I thought Morgan could do this and didn't look into it enough and a little late!
+
+This has middleware generic request logging, but no logging on the actual backend code. 
+
+

@@ -5,26 +5,38 @@ const MAX_STREAMS = 3;
 
 const { Users } = require('../models');
 
-// 
+// See README for logging
 router.get('/', async (req, res, next) => {
     const userID = req.header('x-user-id');
+    if (!userID) {
+        return res.sendStatus(401)
+    }
 
-    if (!userID) return res.sendStatus(401)
+    let currentUserStreams
 
-    // Check number of sessions
-    const currentUserStreams = await Users.getStreamsByIdJson(userID);
-    if (currentUserStreams.length >= 3) {
-        morgan
+    try {
+        currentUserStreams = await Users.getStreamsByIdJson(userID);
+    } catch (e) {
+        // logger.error({timestamp, id: userID, streams: currentUserStreams});
+    }
+    if (currentUserStreams.length >= MAX_STREAMS) {
+        // logger.info({id: userID, streams: currentUserStreams});
         return res.sendStatus(400);
     }
-    
-    // Add stream to user if they have less than 3
-    await Users.addStreamToUserId(userID)
+    try {
+        await Users.addStreamToUserId(userID)
+    } catch (e) {
+        // logger.error({timestamp, id: userID, streams: currentUserStreams});
+    }
 
-    // Code for sending video back would go here? Probably?
+    // Code for sending video back would go here?
+    // Not actually sure how this would work with express res.send() or similar?
 
-    // Once finished sending back video, remove from session
-    // Oh wait how do I do this??
+    try {
+        await Users.removeStreamFromUserId(userID)
+    } catch (e) {
+        // logger.error({timestamp, id: userID, streams: currentUserStreams});
+    }
 
     res.sendStatus(200);
 })

@@ -15,19 +15,17 @@ const userData = [
 const fs = require('fs');
 jest.mock('fs')
 
-fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
-fs.writeFile = jest.fn().mockImplementation((file, data, encoding, cb) => cb(null))
-
 describe('Video Check', () => {
+
+    beforeEach(() => {
+        fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
+        fs.writeFile = jest.fn().mockImplementation((file, data, encoding, cb) => cb(null))
+
+    })
+
     it('Should return a 401 for /video without user id', async (done) => {
         const res = await request.get('/video')
         expect(res.status).toBe(401);
-        done();
-    });
-    
-    it('Should return a 200 for /video', async (done) => {
-        const res = await request.get('/video').set('x-user-id', 5);
-        expect(res.status).toBe(200);
         done();
     });
 

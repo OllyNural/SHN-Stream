@@ -5,6 +5,14 @@ const userData = [
             "streamId",
             "streamId"
         ]
+    },
+    {
+        "id": 4,
+        "streams": [
+            "streamId",
+            "streamId",
+            "streamId"
+        ]
     }
 ]
 
@@ -32,17 +40,17 @@ describe('getStreamsById', () => {
 
 // Didn't want to spend ages on this
 describe('addStreamToUserId', () => {
-    it('Should not add a stream to a user with 3 or more streams', async (done) => {
+    it('Should add to an existing user stream if exists', async (done) => {
         fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
         fs.writeFile = jest.fn().mockImplementation((file, data, encoding, cb) => cb(null))
-        const streams = await users.addStreamToUserId(5);
+        await users.addStreamToUserId(4);
         expect(fs.writeFile).toHaveBeenCalled();
         done()
     })
 
-    it('Should add a stream to a user with less than 3 streams', async (done) => {
+    it('Should create a new user stream if ID is new', async (done) => {
         fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
-        const streams = await users.getStreamsByIdJson(5);
+        await users.getStreamsByIdJson(4);
         expect(fs.writeFile).toHaveBeenCalled();
         done()
     })
