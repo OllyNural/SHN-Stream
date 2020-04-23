@@ -13,6 +13,7 @@ router.get('/', (req, res, next) => {
     // Check number of sessions
     const currentUser = Users.getById(userID);
     console.log(currentUser);
+
     // If allowed, add one to session, and continue
     // If not, send back some error code
 
