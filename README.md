@@ -62,6 +62,18 @@ docker run -p 8000:8000 node-app
 
 /video - Begins streaming a 'video'. This endpoint will increment the user's stream count
 
+This requires a header:
+
+```
+x-user-id: <some_numerical_id>
+```
+
+e.g
+
+```
+x-user-id: 5
+```
+
 See Note in Decision Making. 
 
 ## Thoughts

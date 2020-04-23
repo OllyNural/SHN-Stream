@@ -32,8 +32,9 @@ router.get('/', async (req, res, next) => {
     // Code for sending video back would go here?
     // Not actually sure how this would work with express res.send() or similar?
 
+    // Comment this to remove users after the 'Video has played'
     try {
-        await Users.removeStreamFromUserId(userID)
+        // await Users.removeStreamFromUserId(userID)
     } catch (e) {
         // logger.error({timestamp, id: userID, streams: currentUserStreams});
     }
