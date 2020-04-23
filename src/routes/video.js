@@ -19,15 +19,14 @@ router.get('/', async (req, res, next) => {
     if (currentUserStreams.length >= 3) {
         return res.sendStatus(400);
     }
+    
+    // Add stream to user if they have less than 3
     await Users.addStreamToUserId(userID)
-
-
-    // If allowed, add one to session, and continue
-    // If not, send back some error code
 
     // Code for sending video back would go here? Probably?
 
     // Once finished sending back video, remove from session
+    // Oh wait how do I do this??
 
     res.sendStatus(200);
 })

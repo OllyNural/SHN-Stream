@@ -29,20 +29,15 @@ exports.addStreamToUserId = (id) => {
             }
             const userData = JSON.parse(data)
 
-            userData.map((user, i) => {
-                if (user.id == id) {
-                    user.streams.push("streamId")
-                    return user
-                }
-                return user
+            const i = userData.findIndex(user => user.id === id)
+            if (i > -1) {
+                console.log(i)
+                userData[i].streams.push("streamId")
+            }
+            else userData.push({
+                id,
+                streams: ["streamId"]
             })
-            // for (let user of userData) {
-            //     if (user.id == id) {
-            //         user.streams.push("streamId")
-            //     }
-            // }
-
-            console.log(userData)
 
             fs.writeFile(path.resolve(__dirname, filePath), JSON.stringify(userData), 'utf8', (err) => {
                 if (err) {
