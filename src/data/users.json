@@ -1,8 +1,1 @@
-[
-    {
-        "id": 5,
-        "streams": [
-            "streamId"
-        ]
-    }
-]
+[{"id":5,"streams":["streamId","streamId","streamId"]}]

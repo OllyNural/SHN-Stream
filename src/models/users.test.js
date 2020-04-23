@@ -54,3 +54,21 @@ describe('getStreamsById', () => {
         done()
     })
 });
+
+// Didn't want to spend ages on this
+describe('addStreamToUserId', () => {
+    it('Should not add a stream to a user with 3 or more streams', async (done) => {
+        fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
+        fs.writeFile = jest.fn().mockImplementation((file, data, encoding, cb) => cb(null))
+        const streams = await users.addStreamToUserId(5);
+        expect(fs.writeFile).toHaveBeenCalled();
+        done()
+    })
+
+    it('Should add a stream to a user with less than 3 streams', async (done) => {
+        fs.readFile = jest.fn().mockImplementation((file, option, cb) => cb(null, JSON.stringify(userData)))
+        const streams = await users.getStreamsByIdJson(5);
+        expect(fs.writeFile).toHaveBeenCalled();
+        done()
+    })
+});

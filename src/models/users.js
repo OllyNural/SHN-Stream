@@ -13,11 +13,44 @@ exports.getStreamsByIdJson = (id) => {
             if (err) {
                 rej(err)
             }
+            const userData = JSON.parse(data)
+            const user = userData.find((user) => user.id == id)
+            res(user ? user.streams : [])
+        });
+    })
+}
 
+exports.addStreamToUserId = (id) => {
+    const filePath = '../data/users.json'
+    return new Promise((res, rej) => {
+        fs.readFile(path.resolve(__dirname, filePath), 'utf8', (err, data) => {
+            if (err) {
+                rej(err);
+            }
             const userData = JSON.parse(data)
 
-            const user = userData.find((user) => user.id === id)
-            res(user ? user.streams : [])
+            userData.map((user, i) => {
+                if (user.id == id) {
+                    user.streams.push("streamId")
+                    return user
+                }
+                return user
+            })
+            // for (let user of userData) {
+            //     if (user.id == id) {
+            //         user.streams.push("streamId")
+            //     }
+            // }
+
+            console.log(userData)
+
+            fs.writeFile(path.resolve(__dirname, filePath), JSON.stringify(userData), 'utf8', (err) => {
+                if (err) {
+                    rej(err);
+                }
+    
+                res();
+            });
         });
     })
 }

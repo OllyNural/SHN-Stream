@@ -5,9 +5,9 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 
-const { video } = require('./routes');
+const { video } = require('./src/routes');
 
-const loggerFormat = require('./utils/logger')
+const loggerFormat = require('./src/utils/logger')
 
 // Log errors to console
 app.use(morgan(loggerFormat, {
