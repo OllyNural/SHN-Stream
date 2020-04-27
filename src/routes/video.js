@@ -7,10 +7,11 @@ const { Users } = require('../models');
 
 // See README for logging
 router.get('/', async (req, res, next) => {
-    const userID = req.header('x-user-id');
-    if (!userID) {
+    const userIDString = req.header('x-user-id');
+    if (!userIDString) {
         return res.sendStatus(401)
     }
+    const userID = parseInt(userIDString)
 
     let currentUserStreams
 

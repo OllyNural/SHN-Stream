@@ -31,11 +31,18 @@ exports.addStreamToUserId = (id) => {
 
             const i = userData.findIndex(user => user.id === id)
             if (i > -1) {
+                console.log('old user)')
                 userData[i].streams.push("streamId")
-            } else userData.push({
-                id,
-                streams: ["streamId"]
-            })
+            } else {
+                console.log('new user)')
+                userData.push({
+                    id,
+                    streams: ["streamId"]
+                })
+            }
+
+            console.log(userData)
+
 
             fs.writeFile(path.resolve(__dirname, filePath), JSON.stringify(userData), 'utf8', (err) => {
                 if (err) {
